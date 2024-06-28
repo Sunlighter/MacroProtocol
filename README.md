@@ -18,11 +18,11 @@ I am aware that Microsoft has written a new command-line version of their [text 
 tool](https://devblogs.microsoft.com/dotnet/t4-command-line-tool-for-dotnet/), which worked at the time with .NET 6,
 but I wanted something that I could use from Visual Studio.
 
-Text templates are usually run at &ldquo;design time,&rdquo; which means they are run from Visual Studio. The output
-of the text templating tool is usually checked into version control. The upshot is that the build process (which might
-be part of a CI/CD setup) just compiles the generated code from version control; it does not have to run the code
-generator, and the code generator can use features and services that are not available at build time. (Also, the
-generated code is usually needed for IntelliSense while writing other code.)
+Text templates are usually run at &ldquo;design time,&rdquo; which usually means they are run from Visual Studio. The
+output of the text templating tool is usually checked into version control. The upshot is that the build process
+(which might be part of a CI/CD setup) just compiles the generated code from version control; it does not have to run
+the code generator, and the code generator can use features and services that are not available at build time. (Also,
+the generated code is usually needed for IntelliSense while writing other code.)
 
 Another option, which might be superior to the approach in this project, would be to write a completely stand-alone
 code generator with a UI. It would be able to find XML files describing inputs and outputs, show when the outputs are
