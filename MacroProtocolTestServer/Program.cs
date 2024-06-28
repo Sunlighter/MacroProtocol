@@ -1,0 +1,148 @@
+﻿using Sunlighter.MacroProtocol;
+using Sunlighter.MacroProtocol.Sockets;
+using System.Collections.Immutable;
+using System.Net;
+
+namespace MacroProtocolTestServer
+{
+    internal sealed class Program
+    {
+        public const int port = 59905;
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine($"Listening on port {port}");
+
+            try
+            {
+                using (CancellationTokenSource cts = new CancellationTokenSource())
+                {
+                    Task t0 = Task.Run
+                    (
+                        () => TcpUtility.RunServer
+                        (
+                            new IPEndPoint(IPAddress.IPv6Loopback, port),
+                            MacroProtocolServerAdapter.GetPeerHandler((peer, cToken) => new GeneratorService(peer)),
+                            MacroProtocolRequest.TypeTraits,
+                            MacroProtocolResponse.TypeTraits,
+                            cts.Token
+                        )
+                    );
+
+                    Console.Write("Press [Enter]: ");
+                    Console.ReadLine();
+
+                    cts.Cancel();
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine();
+                Console.WriteLine("***** Exception! *****");
+                Console.WriteLine();
+                Console.WriteLine(exc);
+            }
+        }
+    }
+
+    internal sealed class GeneratorService : IMacroProtocol
+    {
+        private readonly IPEndPoint peer;
+
+        public GeneratorService(IPEndPoint peer)
+        {
+            this.peer = peer;
+        }
+
+        public Task CloseAsync()
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task<MacroProtocolResponse> GenerateAsync(string commandName, ImmutableList<string> args)
+        {
+            return Task.FromResult
+            (
+                OutputBuilder.GenerateResponse
+                (
+                    dest =>
+                    {
+                        dest.PushIndent("//  ");
+                        dest.WriteLine($"Peer IP: {peer}");
+                        dest.WriteLine($"Command: {commandName}");
+                        foreach(int i in Enumerable.Range(0, args.Count))
+                        {
+                            dest.WriteLine($"Arg {i}: {args[i]}");
+                        }
+                        dest.PopIndent();
+                    }
+                )
+            );
+        }
+
+        public void Dispose()
+        {
+            // do nothing
+        }
+    }
+
+    internal interface IMacroOutput
+    {
+        void Write(string str);
+        void WriteLine(string str);
+        void WriteLine();
+        void PushIndent(string indent);
+        void PopIndent();
+    }
+
+    internal sealed class OutputBuilder : IMacroOutput
+    {
+        private readonly ImmutableList<MPR_Command>.Builder builder;
+
+        public OutputBuilder()
+        {
+            builder = ImmutableList<MPR_Command>.Empty.ToBuilder();
+        }
+
+        public void PopIndent()
+        {
+            builder.Add(MPR_PopIndent.Value);
+        }
+
+        public void PushIndent(string indent)
+        {
+            builder.Add(new MPR_PushIndent(indent));
+        }
+
+        public void Write(string str)
+        {
+            builder.Add(new MPR_Write(str));
+        }
+
+        public void WriteLine(string str)
+        {
+            builder.Add(new MPR_WriteLine(str));
+        }
+
+        public void WriteLine()
+        {
+            builder.Add(MPR_NewLine.Value);
+        }
+
+        public ImmutableList<MPR_Command> Commands => builder.ToImmutable();
+
+        public static MacroProtocolResponse GenerateResponse(Action<IMacroOutput> proc)
+        {
+            try
+            {
+                OutputBuilder b = new OutputBuilder();
+                proc(b);
+                return new MPR_Output(b.Commands);
+            }
+            catch(Exception exc)
+            {
+                return new MPR_Error(ExceptionRecord.GetRecord(exc));
+            }
+        }
+    }
+}

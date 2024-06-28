@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sunlighter.MacroProtocol", "Sunlighter.MacroProtocol\Sunlighter.MacroProtocol.csproj", "{B46C8A2A-8DEE-410F-ACEE-52EFA96F3421}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sunlighter.MacroProtocolClient", "Sunlighter.MacroProtocolClient\Sunlighter.MacroProtocolClient.csproj", "{B7B72FCD-37DF-42B7-89A1-BAA494D650DC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MacroProtocolTestServer", "MacroProtocolTestServer\MacroProtocolTestServer.csproj", "{23E91774-8515-4C69-9663-912BC99A678D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MacroProtocolClientTest", "MacroProtocolClientTest\MacroProtocolClientTest.csproj", "{DC501BBA-7118-4AB0-8452-9559DD39DF0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2D73CC55-6A56-4BE6-9170-DAF5816725A2}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B46C8A2A-8DEE-410F-ACEE-52EFA96F3421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B46C8A2A-8DEE-410F-ACEE-52EFA96F3421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B46C8A2A-8DEE-410F-ACEE-52EFA96F3421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B46C8A2A-8DEE-410F-ACEE-52EFA96F3421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7B72FCD-37DF-42B7-89A1-BAA494D650DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7B72FCD-37DF-42B7-89A1-BAA494D650DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7B72FCD-37DF-42B7-89A1-BAA494D650DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7B72FCD-37DF-42B7-89A1-BAA494D650DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E91774-8515-4C69-9663-912BC99A678D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E91774-8515-4C69-9663-912BC99A678D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E91774-8515-4C69-9663-912BC99A678D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E91774-8515-4C69-9663-912BC99A678D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC501BBA-7118-4AB0-8452-9559DD39DF0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC501BBA-7118-4AB0-8452-9559DD39DF0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC501BBA-7118-4AB0-8452-9559DD39DF0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC501BBA-7118-4AB0-8452-9559DD39DF0E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5499F5D1-B1F4-4034-A9C6-F66DEB317312}
+	EndGlobalSection
+EndGlobal
