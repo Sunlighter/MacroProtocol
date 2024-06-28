@@ -49,6 +49,7 @@ namespace Sunlighter.MacroProtocol.Sockets
             }
         }
 #endif
+
         public static Task ConnectAsync(this Socket s, EndPoint remoteEndPoint)
         {
             TaskCompletionSource<bool> k = new TaskCompletionSource<bool>();

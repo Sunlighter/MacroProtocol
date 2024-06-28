@@ -29,7 +29,8 @@ namespace Sunlighter.MacroProtocol.Sockets
         (
             Socket s,
             ITypeTraits<TRead> readTraits,
-            ITypeTraits<TWrite> writeTraits)
+            ITypeTraits<TWrite> writeTraits
+        )
         {
             this.s = s;
             this.readTraits = readTraits;

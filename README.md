@@ -64,7 +64,6 @@ The protocol could probably be easier to use.
 
 ## The Server
 
-The `MacroProtocolTestServer` is a command-line program that listens on the IPv6 loopback on port `59905`. Although it
-is safe to run it in the Visual Studio debugger, I don't know if Visual Studio can run text templates while it is
-debugging something else, so I prefer to run this program outside of Visual Studio (which means finding the built
-`exe` and double-clicking it).
+The `MacroProtocolTestServer` is a command-line program that listens on the IPv6 loopback on port `59905`. It is
+possible to run this program in the Visual Studio debugger while also running text templates in Visual Studio which
+call into it. It is also possible to find the `exe` and run it directly.
