@@ -19,27 +19,27 @@ namespace Sunlighter.MacroProtocol
             (
                 ImmutableList<IUnionCaseTypeTraits<MacroProtocolResponse>>.Empty.Add
                 (
-                    new UnionCaseTypeTraits2<MacroProtocolResponse, MPR_Output>
+                    new UnionCaseTypeTraits2<MacroProtocolResponse, MPA_Output>
                     (
                         "Output",
-                        new ConvertTypeTraits<MPR_Output, ImmutableList<MPR_Command>>
+                        new ConvertTypeTraits<MPA_Output, ImmutableList<TextCommand>>
                         (
                             obj => obj.Commands,
-                            new ListTypeTraits<MPR_Command>(MPR_Command.TypeTraits),
-                            lst => new MPR_Output(lst)
+                            new ListTypeTraits<TextCommand>(TextCommand.TypeTraits),
+                            lst => new MPA_Output(lst)
                         )
                     )
                 )
                 .Add
                 (
-                    new UnionCaseTypeTraits2<MacroProtocolResponse, MPR_Error>
+                    new UnionCaseTypeTraits2<MacroProtocolResponse, MPA_Error>
                     (
                         "Error",
-                        new ConvertTypeTraits<MPR_Error, ExceptionRecord>
+                        new ConvertTypeTraits<MPA_Error, ExceptionRecord>
                         (
                             obj => obj.ExceptionRecord,
                             ExceptionRecord.TypeTraits,
-                            excr => new MPR_Error(excr)
+                            excr => new MPA_Error(excr)
                         )
                     )
                 )
@@ -54,23 +54,23 @@ namespace Sunlighter.MacroProtocol
         public static Adapter<MacroProtocolResponse> Adapter => adapter.Value;
     }
 
-    public sealed class MPR_Output : MacroProtocolResponse
+    public sealed class MPA_Output : MacroProtocolResponse
     {
-        private readonly ImmutableList<MPR_Command> commands;
+        private readonly ImmutableList<TextCommand> commands;
 
-        public MPR_Output(ImmutableList<MPR_Command> commands)
+        public MPA_Output(ImmutableList<TextCommand> commands)
         {
             this.commands = commands;
         }
 
-        public ImmutableList<MPR_Command> Commands => commands;
+        public ImmutableList<TextCommand> Commands => commands;
     }
 
-    public sealed class MPR_Error : MacroProtocolResponse
+    public sealed class MPA_Error : MacroProtocolResponse
     {
         private readonly ExceptionRecord er;
 
-        public MPR_Error(ExceptionRecord er)
+        public MPA_Error(ExceptionRecord er)
         {
             this.er = er;
         }

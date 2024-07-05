@@ -29,9 +29,9 @@ namespace Sunlighter.MacroProtocolClient
                 async server =>
                 {
                     MacroProtocolResponse a = await server.GenerateAsync(name, args);
-                    if (a is MPR_Output result)
+                    if (a is MPA_Output result)
                     {
-                        foreach (MPR_Command cmd in result.Commands)
+                        foreach (TextCommand cmd in result.Commands)
                         {
                             cmd.Visit
                             (
@@ -43,7 +43,7 @@ namespace Sunlighter.MacroProtocolClient
                             );
                         }
                     }
-                    else if (a is MPR_Error error)
+                    else if (a is MPA_Error error)
                     {
                         output.PushIndent("//  ");
 

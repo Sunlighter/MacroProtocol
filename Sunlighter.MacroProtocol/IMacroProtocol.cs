@@ -31,7 +31,7 @@ namespace Sunlighter.MacroProtocol
 
         public async Task<MacroProtocolResponse> GenerateAsync(string commandName, ImmutableList<string> args)
         {
-            MacroProtocolRequest q = new MPR_Generate(commandName, args);
+            MacroProtocolRequest q = new MPQ_Generate(commandName, args);
 
             await channel.Write(q);
 
@@ -98,7 +98,7 @@ namespace Sunlighter.MacroProtocol
                     Option<MacroProtocolRequest> q = await channel.ReadObjectOrEof();
                     if (q.HasValue)
                     {
-                        if (q.Value is MPR_Generate qGenerate)
+                        if (q.Value is MPQ_Generate qGenerate)
                         {
                             MacroProtocolResponse a = await server.GenerateAsync(qGenerate.CommandName, qGenerate.Arguments);
                             await channel.Write(a);
@@ -107,7 +107,7 @@ namespace Sunlighter.MacroProtocol
                         {
                             await channel.Write
                             (
-                                new MPR_Error
+                                new MPA_Error
                                 (
                                     new ExceptionRecord("--", "Unknown request type", ImmutableList<ExceptionRecord>.Empty)
                                 )

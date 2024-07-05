@@ -16,10 +16,10 @@ namespace Sunlighter.MacroProtocol
             (
                 ImmutableList<IUnionCaseTypeTraits<MacroProtocolRequest>>.Empty.Add
                 (
-                    new UnionCaseTypeTraits2<MacroProtocolRequest, MPR_Generate>
+                    new UnionCaseTypeTraits2<MacroProtocolRequest, MPQ_Generate>
                     (
                         "Generate",
-                        new ConvertTypeTraits<MPR_Generate, (string, ImmutableList<string>)>
+                        new ConvertTypeTraits<MPQ_Generate, (string, ImmutableList<string>)>
                         (
                             obj => (obj.CommandName, obj.Arguments),
                             new ValueTupleTypeTraits<string, ImmutableList<string>>
@@ -27,7 +27,7 @@ namespace Sunlighter.MacroProtocol
                                 StringTypeTraits.Value,
                                 new ListTypeTraits<string>(StringTypeTraits.Value)
                             ),
-                            x => new MPR_Generate(x.Item1, x.Item2)
+                            x => new MPQ_Generate(x.Item1, x.Item2)
                         )
                     )
                 )
@@ -42,12 +42,12 @@ namespace Sunlighter.MacroProtocol
         public static Adapter<MacroProtocolRequest> Adapter => adapter.Value;
     }
 
-    public sealed class MPR_Generate : MacroProtocolRequest
+    public sealed class MPQ_Generate : MacroProtocolRequest
     {
         private readonly string commandName;
         private readonly ImmutableList<string> args;
 
-        public MPR_Generate(string commandName, ImmutableList<string> args)
+        public MPQ_Generate(string commandName, ImmutableList<string> args)
         {
             this.commandName = commandName;
             this.args = args;

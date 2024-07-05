@@ -97,39 +97,39 @@ namespace MacroProtocolTestServer
 
     internal sealed class OutputBuilder : IMacroOutput
     {
-        private readonly ImmutableList<MPR_Command>.Builder builder;
+        private readonly ImmutableList<TextCommand>.Builder builder;
 
         public OutputBuilder()
         {
-            builder = ImmutableList<MPR_Command>.Empty.ToBuilder();
+            builder = ImmutableList<TextCommand>.Empty.ToBuilder();
         }
 
         public void PopIndent()
         {
-            builder.Add(MPR_PopIndent.Value);
+            builder.Add(TC_PopIndent.Value);
         }
 
         public void PushIndent(string indent)
         {
-            builder.Add(new MPR_PushIndent(indent));
+            builder.Add(new TC_PushIndent(indent));
         }
 
         public void Write(string str)
         {
-            builder.Add(new MPR_Write(str));
+            builder.Add(new TC_Write(str));
         }
 
         public void WriteLine(string str)
         {
-            builder.Add(new MPR_WriteLine(str));
+            builder.Add(new TC_WriteLine(str));
         }
 
         public void WriteLine()
         {
-            builder.Add(MPR_NewLine.Value);
+            builder.Add(TC_NewLine.Value);
         }
 
-        public ImmutableList<MPR_Command> Commands => builder.ToImmutable();
+        public ImmutableList<TextCommand> Commands => builder.ToImmutable();
 
         public static MacroProtocolResponse GenerateResponse(Action<IMacroOutput> proc)
         {
@@ -137,11 +137,11 @@ namespace MacroProtocolTestServer
             {
                 OutputBuilder b = new OutputBuilder();
                 proc(b);
-                return new MPR_Output(b.Commands);
+                return new MPA_Output(b.Commands);
             }
             catch(Exception exc)
             {
-                return new MPR_Error(ExceptionRecord.GetRecord(exc));
+                return new MPA_Error(ExceptionRecord.GetRecord(exc));
             }
         }
     }
