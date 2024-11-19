@@ -23,30 +23,30 @@ namespace Sunlighter.MacroProtocol.TypeTraits
 
     public static partial class Extensions
     {
-        public static byte[] SerializeToBytes<T>(this ITypeTraits<T> worker, T a)
+        public static byte[] SerializeToBytes<T>(this ITypeTraits<T> traits, T a)
         {
             using (MemoryStream ms = new MemoryStream())
             {
                 using (BinaryWriter sw = new BinaryWriter(ms, Encoding.UTF8))
                 {
-                    worker.Serialize(sw, a);
+                    traits.Serialize(sw, a);
                     return ms.ToArray();
                 }
             }
         }
 
-        public static T DeserializeFromBytes<T>(this ITypeTraits<T> worker, byte[] b)
+        public static T DeserializeFromBytes<T>(this ITypeTraits<T> traits, byte[] b)
         {
             using (MemoryStream ms = new MemoryStream(b))
             {
                 using (BinaryReader sr = new BinaryReader(ms, Encoding.UTF8))
                 {
-                    return worker.Deserialize(sr);
+                    return traits.Deserialize(sr);
                 }
             }
         }
 
-        public static void SerializeToFile<T>(this ITypeTraits<T> worker, string filePath, T a)
+        public static void SerializeToFile<T>(this ITypeTraits<T> traits, string filePath, T a)
         {
             if (File.Exists(filePath))
             {
@@ -61,29 +61,29 @@ namespace Sunlighter.MacroProtocol.TypeTraits
             {
                 using (BinaryWriter sw = new BinaryWriter(fs, Encoding.UTF8))
                 {
-                    worker.Serialize(sw, a);
+                    traits.Serialize(sw, a);
                 }
             }
         }
 
-        public static T DeserializeFromFile<T>(this ITypeTraits<T> worker, string filePath)
+        public static T DeserializeFromFile<T>(this ITypeTraits<T> traits, string filePath)
         {
             using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 1 << 18, FileOptions.None))
             {
                 using (BinaryReader sr = new BinaryReader(fs, Encoding.UTF8))
                 {
-                    return worker.Deserialize(sr);
+                    return traits.Deserialize(sr);
                 }
             }
         }
 
-        public static T LoadOrGenerate<T>(this ITypeTraits<T> worker, string filePath, Func<T> generate)
+        public static T LoadOrGenerate<T>(this ITypeTraits<T> traits, string filePath, Func<T> generate)
         {
             if (File.Exists(filePath))
             {
                 try
                 {
-                    return worker.DeserializeFromFile(filePath);
+                    return traits.DeserializeFromFile(filePath);
                 }
                 catch (Exception exc)
                 {
@@ -92,22 +92,22 @@ namespace Sunlighter.MacroProtocol.TypeTraits
             }
 
             T result = generate();
-            worker.SerializeToFile(filePath, result);
+            traits.SerializeToFile(filePath, result);
             return result;
         }
 
-        public static int GetBasicHashCode<T>(this ITypeTraits<T> worker, T a)
+        public static int GetBasicHashCode<T>(this ITypeTraits<T> traits, T a)
         {
             BasicHashBuilder hb = new BasicHashBuilder();
-            worker.AddToHash(hb, a);
+            traits.AddToHash(hb, a);
             return hb.Result;
         }
 
-        public static byte[] GetSHA256Hash<T>(this ITypeTraits<T> worker, T a)
+        public static byte[] GetSHA256Hash<T>(this ITypeTraits<T> traits, T a)
         {
             using (SHA256HashBuilder hb = new SHA256HashBuilder())
             {
-                worker.AddToHash(hb, a);
+                traits.AddToHash(hb, a);
                 return hb.Result;
             }
         }
