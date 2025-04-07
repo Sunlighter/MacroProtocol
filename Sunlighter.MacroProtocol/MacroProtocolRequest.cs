@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
 using System.Threading;
-using Sunlighter.MacroProtocol.TypeTraits;
+using Sunlighter.TypeTraitsLib;
 
 namespace Sunlighter.MacroProtocol
 {
@@ -12,11 +12,12 @@ namespace Sunlighter.MacroProtocol
 
         private static ITypeTraits<MacroProtocolRequest> GetTypeTraits()
         {
-            return new UnionTypeTraits<MacroProtocolRequest>
+            return new UnionTypeTraits<string, MacroProtocolRequest>
             (
-                ImmutableList<IUnionCaseTypeTraits<MacroProtocolRequest>>.Empty.Add
+                StringTypeTraits.Value,
+                ImmutableList<IUnionCaseTypeTraits<string, MacroProtocolRequest>>.Empty.Add
                 (
-                    new UnionCaseTypeTraits2<MacroProtocolRequest, MPQ_Generate>
+                    new UnionCaseTypeTraits2<string, MacroProtocolRequest, MPQ_Generate>
                     (
                         "Generate",
                         new ConvertTypeTraits<MPQ_Generate, (string, ImmutableList<string>)>

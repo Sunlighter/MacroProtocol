@@ -1,5 +1,5 @@
 ﻿using Sunlighter.MacroProtocol;
-using Sunlighter.MacroProtocol.Sockets;
+using Sunlighter.TypeTraitsLib.Networking;
 using System.Collections.Immutable;
 using System.Net;
 
@@ -22,9 +22,9 @@ namespace MacroProtocolTestServer
                         () => TcpUtility.RunServer
                         (
                             new IPEndPoint(IPAddress.IPv6Loopback, port),
-                            MacroProtocolServerAdapter.GetPeerHandler((peer, cToken) => new GeneratorService(peer)),
                             MacroProtocolRequest.TypeTraits,
                             MacroProtocolResponse.TypeTraits,
+                            MacroProtocolServerAdapter.GetPeerHandler((peer, cToken) => new GeneratorService(peer)),
                             cts.Token
                         )
                     );
@@ -68,6 +68,7 @@ namespace MacroProtocolTestServer
                     dest =>
                     {
                         dest.PushIndent("//  ");
+                        dest.WriteLine($"Now: {DateTime.Now:f}");
                         dest.WriteLine($"Peer IP: {peer}");
                         dest.WriteLine($"Command: {commandName}");
                         foreach(int i in Enumerable.Range(0, args.Count))

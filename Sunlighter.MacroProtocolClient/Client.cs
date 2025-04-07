@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Sunlighter.MacroProtocol;
-using Sunlighter.MacroProtocol.Sockets;
-using Sunlighter.MacroProtocol.TypeTraits;
+using Sunlighter.TypeTraitsLib;
+using Sunlighter.TypeTraitsLib.Networking;
 
 namespace Sunlighter.MacroProtocolClient
 {
@@ -68,7 +68,7 @@ namespace Sunlighter.MacroProtocolClient
                     else
                     {
                         output.PushIndent("//  ");
-                        output.WriteLine($"Unknown type of response {ReflectionExtensions.GetTypeName(a.GetType())}");
+                        output.WriteLine($"Unknown type of response {TypeTraitsUtility.GetTypeName(a.GetType())}");
                     }
                 }
             );

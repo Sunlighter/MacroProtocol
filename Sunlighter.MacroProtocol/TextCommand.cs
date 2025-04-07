@@ -1,4 +1,4 @@
-﻿using Sunlighter.MacroProtocol.TypeTraits;
+﻿using Sunlighter.TypeTraitsLib;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,11 +14,12 @@ namespace Sunlighter.MacroProtocol
 
         private static ITypeTraits<TextCommand> GetTypeTraits()
         {
-            return new UnionTypeTraits<TextCommand>
+            return new UnionTypeTraits<string, TextCommand>
             (
-                ImmutableList<IUnionCaseTypeTraits<TextCommand>>.Empty.Add
+                StringTypeTraits.Value,
+                ImmutableList<IUnionCaseTypeTraits<string, TextCommand>>.Empty.Add
                 (
-                    new UnionCaseTypeTraits2<TextCommand, TC_Write>
+                    new UnionCaseTypeTraits2<string, TextCommand, TC_Write>
                     (
                         "Write",
                         new ConvertTypeTraits<TC_Write, string>(w => w.Value, StringTypeTraits.Value, s => new TC_Write(s))
@@ -26,7 +27,7 @@ namespace Sunlighter.MacroProtocol
                 )
                 .Add
                 (
-                    new UnionCaseTypeTraits2<TextCommand, TC_WriteLine>
+                    new UnionCaseTypeTraits2<string, TextCommand, TC_WriteLine>
                     (
                         "WriteLine",
                         new ConvertTypeTraits<TC_WriteLine, string>(w => w.Value, StringTypeTraits.Value, s => new TC_WriteLine(s))
@@ -34,7 +35,7 @@ namespace Sunlighter.MacroProtocol
                 )
                 .Add
                 (
-                    new UnionCaseTypeTraits2<TextCommand, TC_NewLine>
+                    new UnionCaseTypeTraits2<string, TextCommand, TC_NewLine>
                     (
                         "NewLine",
                         new UnitTypeTraits<TC_NewLine>(0x2328467Fu, TC_NewLine.Value)
@@ -42,7 +43,7 @@ namespace Sunlighter.MacroProtocol
                 )
                 .Add
                 (
-                    new UnionCaseTypeTraits2<TextCommand, TC_PushIndent>
+                    new UnionCaseTypeTraits2<string, TextCommand, TC_PushIndent>
                     (
                         "PushIndent",
                         new ConvertTypeTraits<TC_PushIndent, string>(p => p.Indent, StringTypeTraits.Value, s => new TC_PushIndent(s))
@@ -50,7 +51,7 @@ namespace Sunlighter.MacroProtocol
                 )
                 .Add
                 (
-                    new UnionCaseTypeTraits2<TextCommand, TC_PopIndent>
+                    new UnionCaseTypeTraits2<string, TextCommand, TC_PopIndent>
                     (
                         "PopIndent",
                         new UnitTypeTraits<TC_PopIndent>(0xCA798ABCu, TC_PopIndent.Value)

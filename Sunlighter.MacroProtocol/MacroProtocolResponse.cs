@@ -1,4 +1,4 @@
-﻿using Sunlighter.MacroProtocol.TypeTraits;
+﻿using Sunlighter.TypeTraitsLib;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -15,11 +15,12 @@ namespace Sunlighter.MacroProtocol
 
         private static ITypeTraits<MacroProtocolResponse> GetTypeTraits()
         {
-            return new UnionTypeTraits<MacroProtocolResponse>
+            return new UnionTypeTraits<string, MacroProtocolResponse>
             (
-                ImmutableList<IUnionCaseTypeTraits<MacroProtocolResponse>>.Empty.Add
+                StringTypeTraits.Value,
+                ImmutableList<IUnionCaseTypeTraits<string, MacroProtocolResponse>>.Empty.Add
                 (
-                    new UnionCaseTypeTraits2<MacroProtocolResponse, MPA_Output>
+                    new UnionCaseTypeTraits2<string, MacroProtocolResponse, MPA_Output>
                     (
                         "Output",
                         new ConvertTypeTraits<MPA_Output, ImmutableList<TextCommand>>
@@ -32,7 +33,7 @@ namespace Sunlighter.MacroProtocol
                 )
                 .Add
                 (
-                    new UnionCaseTypeTraits2<MacroProtocolResponse, MPA_Error>
+                    new UnionCaseTypeTraits2<string, MacroProtocolResponse, MPA_Error>
                     (
                         "Error",
                         new ConvertTypeTraits<MPA_Error, ExceptionRecord>
@@ -156,7 +157,7 @@ namespace Sunlighter.MacroProtocol
 
             return new ExceptionRecord
             (
-                ReflectionExtensions.GetTypeName(exc.GetType()),
+                TypeTraitsUtility.GetTypeName(exc.GetType()),
                 exc.Message ?? string.Empty,
                 children.Select(GetRecord).ToImmutableList()
             );
