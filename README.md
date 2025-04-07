@@ -1,4 +1,4 @@
-﻿<!-- -*- coding: utf-8; fill-column: 118 -*- -->
+<!-- -*- coding: utf-8; fill-column: 118 -*- -->
 
 # MacroProtocol
 
@@ -39,7 +39,7 @@ out of date, and allow the user to regenerate them.
 
 My old Scheme in C# made extensive use of Text Templates for code generation. Most of my templates referenced a
 `Macros.dll` library which was loaded into the templates and handled the actual code generation. It could parse XML
-descriptions of the code to be generated, which could be supplied in a different file). I wrote this project in order
+descriptions of the code to be generated, which could be supplied in a different file. I wrote this project in order
 to try to make Text Templates useful with more recent versions of dot-Net.
 
 ## The Client (T4 Template)
