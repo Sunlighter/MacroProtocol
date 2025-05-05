@@ -29,7 +29,7 @@ namespace MacroProtocolTestServer
                         )
                     );
 
-                    Console.Write("Press [Enter]: ");
+                    Console.Write("Press [Enter] to terminate server: ");
                     Console.ReadLine();
 
                     cts.Cancel();
