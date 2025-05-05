@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Sunlighter.TypeTraitsLib" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Sunlighter.MacroProtocol\Sunlighter.MacroProtocol.csproj" />
   </ItemGroup>
 
